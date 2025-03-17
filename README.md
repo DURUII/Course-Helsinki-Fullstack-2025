@@ -17,11 +17,6 @@
 |      | 12. Containers                                       |
 |      | 13. Using relational databases                       |
 
-
-## Informative Materials
-
-git: https://learngitbranching.js.org/
-
 ## Acknowledgements
 
 Thanks to the University of Helsinki, Houston Inc., and all the contributors for providing such comprehensive learning materials. 
