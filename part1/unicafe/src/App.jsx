@@ -12,10 +12,32 @@ const Button = ({ text, onClick }) => {
   </>
 }
 
-const Display = ({ text, value }) => {
-  return <div>
-    {text} {value}
-  </div>
+const StatisticLine = ({ text, value }) => {
+  // here is the magic of reusable component
+  return <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
+}
+
+const Statistics = ({ good, neutral, bad }) => {
+  const all = good + bad + neutral
+  if (all === 0) {
+    return <div>No feedback given</div>
+  }
+
+  return (
+    <table>
+      <tbody>
+        <StatisticLine text='good' value={good}></StatisticLine>
+        <StatisticLine text='neutral' value={neutral}></StatisticLine>
+        <StatisticLine text='bad' value={bad}></StatisticLine>
+        <StatisticLine text='all' value={all}></StatisticLine>
+        <StatisticLine text='average' value={(good - bad) / all}></StatisticLine>
+        <StatisticLine text='positive' value={good / all * 100 + '%'}></StatisticLine>
+      </tbody>
+    </table>
+  )
 }
 
 const App = () => {
@@ -24,8 +46,6 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const all = good + bad + neutral
-
   return (
     <div>
       <Title text='give feedback'></Title>
@@ -33,12 +53,7 @@ const App = () => {
       <Button text='neutral' onClick={() => setNeutral(neutral + 1)}></Button>
       <Button text='bad' onClick={() => setBad(bad + 1)}></Button>
       <Title text='statistics'></Title>
-      <Display text='good' value={good}></Display>
-      <Display text='neutral' value={neutral}></Display>
-      <Display text='bad' value={bad}></Display>
-      <Display text='all' value={all}></Display>
-      <Display text='average' value={(good - bad) / all}></Display>
-      <Display text='positive' value={good / all * 100 + '%'}></Display>
+      <Statistics good={good} bad={bad} neutral={neutral}></Statistics>
     </div>
   )
 }
